@@ -6,6 +6,7 @@ from backend.app.schemas.style_check import (
     Suggestion,
     SuggestionType,
 )
+from backend.app.services.structure_detection_service import detect_structure
 
 
 def check_code_style_deterministic(request: StyleCheckRequest) -> StyleCheckResponse:
@@ -24,7 +25,7 @@ def check_code_style_deterministic(request: StyleCheckRequest) -> StyleCheckResp
                     line_start=index,
                     line_end=index,
                     original=line,
-                    replacement=line.replace("int a, b", "int leftValue, rightValue"),
+                    replacement=line.replace("int a, b", "int left_value, right_value"),
                     reason="变量名应表达其含义，便于阅读输入数据的用途。",
                     course_concept="变量命名与代码可读性",
                     apply_safe=True,
@@ -39,6 +40,7 @@ def check_code_style_deterministic(request: StyleCheckRequest) -> StyleCheckResp
         status=status,
         message=message,
         formatted_code=request.code,
+        structure_detection=detect_structure(request),
         suggestions=suggestions,
         advanced_tip=None,
         metadata=ResponseMetadata(

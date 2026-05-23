@@ -45,6 +45,10 @@ class StyleCheckRequest(BaseModel):
     user_preferences: UserPreferences = Field(default_factory=UserPreferences)
 
 
+class NormalizeCodeRequest(StyleCheckRequest):
+    apply_level: Literal["safe_only", "suggestions_only"] = "safe_only"
+
+
 class Suggestion(BaseModel):
     id: str
     type: SuggestionType
@@ -59,6 +63,39 @@ class Suggestion(BaseModel):
     confidence: float = Field(ge=0, le=1)
 
 
+class StructureDetection(BaseModel):
+    primary_structure: str | None = None
+    secondary_structures: list[str] = Field(default_factory=list)
+    confidence: float = Field(ge=0, le=1)
+    evidence: list[str] = Field(default_factory=list)
+
+
+class VisualRole(BaseModel):
+    name: str
+    role: str
+
+
+class VisualIR(BaseModel):
+    structure: str | None = None
+    operation: str | None = None
+    roles: list[VisualRole] = Field(default_factory=list)
+    visual_tags: list[str] = Field(default_factory=list)
+
+
+class AppliedChange(BaseModel):
+    id: str
+    type: SuggestionType
+    safety: Literal["safe", "review_required", "unsafe"]
+    reason: str
+
+
+class BlockedChange(BaseModel):
+    id: str
+    type: SuggestionType
+    safety: Literal["review_required", "unsafe"]
+    reason: str
+
+
 class ResponseMetadata(BaseModel):
     ruleset_version: str
     llm_used: bool
@@ -69,6 +106,20 @@ class StyleCheckResponse(BaseModel):
     status: Literal["clean", "has_suggestions", "partial"]
     message: str
     formatted_code: str | None = None
+    structure_detection: StructureDetection | None = None
     suggestions: list[Suggestion] = Field(default_factory=list)
     advanced_tip: str | None = None
+    metadata: ResponseMetadata
+
+
+class NormalizeCodeResponse(BaseModel):
+    status: Literal["normalized", "unchanged", "partial"]
+    message: str
+    normalized_code: str
+    diff: str | None = None
+    structure_detection: StructureDetection
+    visual_ir: VisualIR | None = None
+    suggestions: list[Suggestion] = Field(default_factory=list)
+    applied_changes: list[AppliedChange] = Field(default_factory=list)
+    blocked_changes: list[BlockedChange] = Field(default_factory=list)
     metadata: ResponseMetadata

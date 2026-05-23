@@ -17,6 +17,7 @@ from backend.app.schemas.style_check import (
     Suggestion,
     SuggestionType,
 )
+from backend.app.services.structure_detection_service import detect_structure
 
 
 class LLMStyleCheckResult(BaseModel):
@@ -317,6 +318,7 @@ def check_code_style_with_llm(request: StyleCheckRequest) -> StyleCheckResponse:
         status=status,
         message=message,
         formatted_code=request.code,
+        structure_detection=detect_structure(request),
         suggestions=suggestions,
         advanced_tip=result.advanced_tip,
         metadata=ResponseMetadata(
