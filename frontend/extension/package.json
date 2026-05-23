@@ -12,7 +12,8 @@
     "Linters"
   ],
   "activationEvents": [
-    "onCommand:dsStyleGuidance.checkSelection"
+    "onCommand:dsStyleGuidance.checkSelection",
+    "onCommand:dsStyleGuidance.normalizeSelection"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -20,6 +21,10 @@
       {
         "command": "dsStyleGuidance.checkSelection",
         "title": "代码规范建议"
+      },
+      {
+        "command": "dsStyleGuidance.normalizeSelection",
+        "title": "生成规范化预览"
       }
     ],
     "menus": {
@@ -28,6 +33,11 @@
           "command": "dsStyleGuidance.checkSelection",
           "when": "editorLangId == cpp || editorLangId == c",
           "group": "navigation@10"
+        },
+        {
+          "command": "dsStyleGuidance.normalizeSelection",
+          "when": "editorLangId == cpp || editorLangId == c",
+          "group": "navigation@11"
         }
       ]
     },
