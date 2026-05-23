@@ -1,0 +1,14 @@
+{
+  "name": "yatds-code-style-guidance",
+  "private": true,
+  "scripts": {
+    "install:frontend": "npm.cmd --prefix frontend/extension install",
+    "install:backend": "python -m pip install -r backend/requirements.txt",
+    "install:backend:conda": "D:/Conda/envs/mcm_py310/python.exe -m pip install -r backend/requirements.txt",
+    "compile:frontend": "npm.cmd --prefix frontend/extension run compile",
+    "dev:backend": "python -m uvicorn backend.app.main:app --reload --reload-dir backend --host 127.0.0.1 --port 8010",
+    "dev:backend:conda": "D:/Conda/envs/mcm_py310/python.exe -m uvicorn backend.app.main:app --reload --reload-dir backend --host 127.0.0.1 --port 8010",
+    "check:backend": "D:/Conda/envs/mcm_py310/python.exe -m compileall backend"
+  },
+  "devDependencies": {}
+}

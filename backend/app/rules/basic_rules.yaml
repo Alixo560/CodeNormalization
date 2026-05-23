@@ -1,0 +1,21 @@
+ruleset_version: 2026-spring-v1
+
+allowed_abbreviations:
+  - num
+  - cnt
+  - idx
+  - res
+  - tmp
+  - cur
+  - prev
+  - next
+  - head
+  - tail
+
+forbidden_suggestions:
+  - algorithm_replacement
+  - performance_optimization
+  - advanced_architecture
+  - new_library
+
+max_suggestions_per_check: 5

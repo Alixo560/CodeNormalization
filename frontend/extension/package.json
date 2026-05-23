@@ -1,0 +1,57 @@
+{
+  "name": "ds-code-style-guidance",
+  "displayName": "Data Structure Code Style Guidance",
+  "description": "Code readability guidance for data structure courses.",
+  "version": "0.1.0",
+  "publisher": "yatds",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Education",
+    "Linters"
+  ],
+  "activationEvents": [
+    "onCommand:dsStyleGuidance.checkSelection"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "dsStyleGuidance.checkSelection",
+        "title": "代码规范建议"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "dsStyleGuidance.checkSelection",
+          "when": "editorLangId == cpp || editorLangId == c",
+          "group": "navigation@10"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Data Structure Code Style Guidance",
+      "properties": {
+        "dsStyleGuidance.apiBaseUrl": {
+          "type": "string",
+          "default": "http://127.0.0.1:8010",
+          "description": "Backend API base URL."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/vscode": "^1.90.0",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "yatds-code-style-guidance": "file:../.."
+  }
+}

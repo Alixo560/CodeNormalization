@@ -1,0 +1,40 @@
+id: linked_list_pointer_naming
+title: 链表指针命名规范
+scope:
+  language: cpp
+  topics:
+    - linked_list
+    - pointer
+  issue_types:
+    - naming
+trigger:
+  keywords:
+    - Node*
+    - node*
+    - head
+    - next
+    - h
+    - p
+    - q
+    - t
+rules:
+  allowed_names:
+    - head
+    - tail
+    - cur
+    - prev
+    - next
+    - newNode
+  discouraged_names:
+    - h
+    - p
+    - q
+    - t
+guidance:
+  principle: 指针变量应体现其在链表遍历中的角色。
+  good_example: Node* cur = head;
+  bad_example: Node* p = head;
+llm_instruction: >
+  如果学生在链表构建或遍历中使用 h、p、q、t 等模糊指针名，
+  可以建议 h 改为 head、p 改为 cur 或 tail、q 改为 prev、t 改为 newNode 等角色名，
+  但不能改变链表遍历逻辑。
